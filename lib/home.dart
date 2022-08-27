@@ -10,6 +10,10 @@ class Home extends StatelessWidget {
     Task('titulo3', 'descrição3'),
   ];
 
+  void remove(index) {
+    list.removeAt(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,16 @@ class Home extends StatelessWidget {
       ),
       body: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return Center(child: Text(list[index].title));
+          return ListTile(
+            title: Text(list[index].title),
+            subtitle: Text(list[index].description),
+            trailing: IconButton(
+                icon: Icon(Icons.delete),
+                color: Colors.red,
+                onPressed: () {
+                  remove(index);
+                }),
+          );
         },
         separatorBuilder: (BuildContext context, int separatorIndex) {
           return Divider();
