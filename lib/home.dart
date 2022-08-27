@@ -22,12 +22,36 @@ class HomeState extends State<Home> {
     });
   }
 
+  add() {
+    return showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text('Adicionar Tarefa'),
+            content: Text('corpo'),
+            actions: [
+              RaisedButton(
+                onPressed: null,
+                child: Text('Salvar'),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     print('método build');
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Tarefas'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            color: Colors.white,
+            onPressed: () => add(),
+          )
+        ],
       ),
       body: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
