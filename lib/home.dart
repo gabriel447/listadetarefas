@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:listadetarefas/main.dart';
 import 'package:listadetarefas/models/task.dart';
 import './models/task.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return HomeState();
+  }
+}
+
+class HomeState extends State<Home> {
   final list = [
     Task('titulo1', 'descrição1'),
     Task('titulo2', 'descrição2'),
@@ -11,11 +17,14 @@ class Home extends StatelessWidget {
   ];
 
   void remove(index) {
-    list.removeAt(index);
+    setState(() {
+      list.removeAt(index);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print('método build');
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Tarefas'),
