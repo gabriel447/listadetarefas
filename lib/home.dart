@@ -10,6 +10,9 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  static final titleController = TextEditingController();
+  static final descriptionController = TextEditingController();
+
   final list = [
     Task('titulo1', 'descrição1'),
     Task('titulo2', 'descrição2'),
@@ -22,16 +25,42 @@ class HomeState extends State<Home> {
     });
   }
 
+  save() {
+    Task task = Task(titleController.text, descriptionController.text);
+    setState(() {
+      list.add(task);
+    });
+
+    titleController.clear();
+    descriptionController.clear();
+
+    Navigator.of(context).pop();
+  }
+
   add() {
     return showDialog(
         context: context,
         builder: (_) {
           return AlertDialog(
             title: Text('Adicionar Tarefa'),
-            content: Text('corpo'),
+            content: SizedBox(
+              height: 200,
+              child: Column(
+                children: [
+                  TextField(
+                    controller: titleController,
+                    decoration: InputDecoration(labelText: 'Título'),
+                  ),
+                  TextField(
+                    controller: descriptionController,
+                    decoration: InputDecoration(labelText: 'Descrição'),
+                  ),
+                ],
+              ),
+            ),
             actions: [
               RaisedButton(
-                onPressed: null,
+                onPressed: () => save(),
                 child: Text('Salvar'),
               ),
             ],
